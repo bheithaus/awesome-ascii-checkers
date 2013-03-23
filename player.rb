@@ -20,7 +20,8 @@ class HumanPlayer
 	def take_turn(prompt = nil)
 		prompt ||= "#{@name}, it is your turn"
 		puts prompt
-		puts "please input a start square and end square to move your piece"
+		puts "please input a start square"
+		puts "and end square to move your piece"
 		moves = get_move # "01, 02"
 		if @game.board[moves[0]].moves.include?(moves[1])
 			return moves

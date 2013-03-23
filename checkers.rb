@@ -8,6 +8,8 @@ class Game
 	attr_reader :board
 
 	def initialize
+		puts "Welcome to Checkers"
+		puts "___________________"
 		@players = [HumanPlayer.create(:black, 1, self), HumanPlayer.create(:red, 2, self)]
 		@board = Board.new(@players[0], @players[1])
 		@players.each { |player| player.make_team }

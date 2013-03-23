@@ -69,7 +69,7 @@ class Piece
 	end
 
 	def render
-		piece = @king ? "K " : "O "
+		piece = @king ? "\u25C8 " : "\u25C9 "
 		piece.colorize(@color)
 	end
 end
