@@ -49,10 +49,11 @@ class Board
 		if (to[0] - from[0]).abs > 1
 			delta = [(to[0] - from[0])/2, (to[1] - from[1])/2]
 			##someone was under you
-			debugger
 			imploded_pos = [from[0] + delta[0], from[1] + delta[1]]
 			self[imploded_pos].implode
-			return true unless self[to].moves.empty?
+
+			self[to].moves
+			return true unless self[to].jump_move?
 		end
 		false
 	end
