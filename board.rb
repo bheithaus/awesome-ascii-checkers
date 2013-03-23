@@ -42,24 +42,17 @@ class Board
 	def make_move(move_coords)
 		from, to = move_coords
 		moving_piece = self[from]
-		moving_piece.moves.each {|m| print m}
-
 		self[to].implode if self[to]
 		self[from].move_to(to)
 		if (to[0] - from[0]).abs > 1
 			delta = [(to[0] - from[0])/2, (to[1] - from[1])/2]
-			##someone was under you
+			##someone was under that move
 			imploded_pos = [from[0] + delta[0], from[1] + delta[1]]
 			self[imploded_pos].implode
-
 			self[to].moves
-			return true unless self[to].jump_move?
+			return true if self[to].jump_move?
 		end
 		false
-	end
-
-	def valid_move?(move_coords)  ##lolzzzz
-		true
 	end
 
 	def in_bounds?(move_coords)

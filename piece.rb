@@ -39,7 +39,7 @@ class Piece
 		deltas.select! { |delta| @board.in_bounds?([delta[0] + position[0], delta[1] + position[1]]) }
 		moves = []
 		deltas.each do |delta|
-			moves += get_moves_for_delta(delta, @position, @color)
+			moves += get_moves_for_delta(delta)#, @position, @color)
 		end
 
 		moves
@@ -51,15 +51,14 @@ class Piece
 		@king ? [[f, 1], [f, -1], [-f, 1], [-f, -1]] : [[f, 1], [f, -1]]
 	end
 
-	def get_moves_for_delta(delta, position, my_color) ###what is going on here? i recursively call a method
-		moves = []										##that lives inside this instance of class  
-														##does the new frame include instance variables from the caller object??
+	def get_moves_for_delta(delta)	###what is going on here? i recursively call a method
+		moves = []					##that lives inside this instance of Piece class, the recursive calls still have access to instance variables @position
 		move_to = [@position[0] + delta[0], @position[1] + delta[1]]
-
-		if @board[move_to] != nil && @board[move_to].color != my_color  ##enemy, is there, try skipping over
-			moves += get_moves_for_delta(delta.map { |i| 2*i }, position, my_color)
+		return [] unless @board.in_bounds?(move_to)
+		if @board[move_to] != nil && @board[move_to].color != @color 
+			moves += get_moves_for_delta(delta.map { |i| 2*i }) ##enemy, is there, try skipping over
 		elsif @board[move_to] == nil
-			moves << move_to## nothing is there
+			moves << move_to  ## nothing is there
 		end
 
 		moves

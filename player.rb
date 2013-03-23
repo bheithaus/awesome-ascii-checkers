@@ -18,16 +18,14 @@ class HumanPlayer
 	end
 
 	def take_turn(prompt = nil)
-		prompt ||= "#{@name}, it is your turn"  ##syntax??
+		prompt ||= "#{@name}, it is your turn"
 		puts prompt
 		puts "please input a start square and end square to move your piece"
-		####  01, 02
-
-		moves = get_move
-		if @game.board.valid_move?(moves) && @game.board[moves[0]].moves.include?(moves[1])
+		moves = get_move # "01, 02"
+		if @game.board[moves[0]].moves.include?(moves[1])
 			return moves
 		else
-			self.take_turn("invalid move! please try again")  ##recursive input validation :)
+			self.take_turn("invalid move! please try again")  ## recursive input validation :)
 		end
 	end
 
@@ -39,10 +37,9 @@ class HumanPlayer
 
 	def make_team
 		i_start = @color == :red ? 0 : 5
-
 		@pieces = []
 		i_start.upto(i_start+2) do |i|
-			j_start = i.even? ? 0 : 1  ###if i is even we
+			j_start = i.even? ? 0 : 1
 			4.times do |count|
 				j = 2*count + j_start
 				@pieces << Piece.new(@color, [i,j], @game.board)
